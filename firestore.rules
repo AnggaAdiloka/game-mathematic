@@ -1,0 +1,46 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // GANTI UID_GURU_1 dengan UID akun guru dari Firebase Authentication.
+    // Tambahkan UID guru lain bila diperlukan.
+    function isTeacher() {
+      return request.auth != null &&
+        request.auth.uid in ['UID_GURU_1'];
+    }
+
+    match /results/{resultId} {
+      // Siswa boleh mengirim hasil baru dengan anonymous auth.
+      // Siswa tidak boleh membaca, mengubah, atau menghapus hasil.
+      allow create: if request.auth != null
+        && request.resource.data.keys().hasOnly([
+          'studentName','studentClass','score','correctAnswers','attempts',
+          'totalEnemies','completed','durationSeconds','createdAt','playerUid','gameVersion'
+        ])
+        && request.resource.data.studentName is string
+        && request.resource.data.studentName.size() >= 1
+        && request.resource.data.studentName.size() <= 60
+        && request.resource.data.studentClass is string
+        && request.resource.data.studentClass in ['3A','3B','3C','3']
+        && request.resource.data.score is int
+        && request.resource.data.score >= 0
+        && request.resource.data.score <= 40
+        && request.resource.data.correctAnswers is int
+        && request.resource.data.correctAnswers >= 0
+        && request.resource.data.correctAnswers <= 4
+        && request.resource.data.attempts is int
+        && request.resource.data.attempts >= request.resource.data.correctAnswers
+        && request.resource.data.attempts <= 100
+        && request.resource.data.totalEnemies == 4
+        && request.resource.data.completed is bool
+        && request.resource.data.durationSeconds is int
+        && request.resource.data.durationSeconds >= 1
+        && request.resource.data.durationSeconds <= 7200
+        && request.resource.data.playerUid == request.auth.uid
+        && request.resource.data.gameVersion == '1.0'
+        && request.resource.data.createdAt == request.time;
+
+      allow read: if isTeacher();
+      allow update, delete: if false;
+    }
+  }
+}

@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="id">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Dashboard Guru • Petualangan Matematika</title><link rel="stylesheet" href="style.css"></head>
+<body class="teacher-page">
+<main class="teacher-shell">
+  <header class="toolbar"><div><p class="eyebrow">AREA PRIVAT</p><h1>Dashboard Guru</h1><p class="muted">Hasil permainan Petualangan Matematika</p></div><a href="./index.html">← Kembali ke game</a></header>
+  <section id="login-card" class="teacher-card">
+    <h2>Login guru</h2><p class="muted">Gunakan akun guru yang dibuat di Firebase Authentication.</p>
+    <form id="login-form" class="teacher-form">
+      <label for="email">Email guru</label><input id="email" type="email" required autocomplete="username">
+      <label for="password">Password</label><input id="password" type="password" required autocomplete="current-password">
+      <button class="button primary" type="submit">MASUK</button>
+    </form><p id="login-status" class="status" aria-live="polite"></p>
+  </section>
+  <section id="results-card" class="teacher-card hidden">
+    <div class="toolbar"><div><h2>Hasil siswa</h2><p id="teacher-label" class="muted"></p></div><div><button id="refresh" class="button">MUAT ULANG</button> <button id="logout" class="button">KELUAR</button></div></div>
+    <p id="results-status" class="status" aria-live="polite">Memuat hasil...</p>
+    <div class="table-wrap"><table><thead><tr><th>Waktu</th><th>Nama</th><th>Kelas</th><th>Skor</th><th>Benar</th><th>Percobaan</th><th>Durasi</th></tr></thead><tbody id="results-body"></tbody></table></div>
+  </section>
+  <p class="muted">Akses data dibatasi oleh Firebase Authentication dan Firestore Security Rules. Jangan bagikan akun guru kepada siswa.</p>
+</main>
+<script type="module" src="teacher.js"></script>
+</body></html>

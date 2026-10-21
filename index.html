@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Petualangan Matematika</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="game-page">
+  <main class="shell">
+    <header class="topbar">
+      <div><p class="eyebrow">GAME EDUKASI • KELAS 3 SD</p><h1>Petualangan Matematika</h1></div>
+      <div class="score-chip">KOIN <strong id="score">0</strong></div>
+    </header>
+
+    <section id="start-panel" class="panel start-panel">
+      <div class="pixel-badge">LEVEL 01</div>
+      <h2>Siap berpetualang?</h2>
+      <p>Isi identitasmu terlebih dahulu. Temui musuh, jawab soal matematika, dan kumpulkan koin!</p>
+      <form id="start-form">
+        <label for="student-name">Nama siswa</label>
+        <input id="student-name" name="studentName" maxlength="60" autocomplete="name" required placeholder="Tulis nama lengkap">
+        <label for="student-class">Kelas</label>
+        <select id="student-class" name="studentClass" required>
+          <option value="">Pilih kelas</option><option>3A</option><option>3B</option><option>3C</option><option>3</option>
+        </select>
+        <button class="button primary" type="submit">MULAI PETUALANGAN ▶</button>
+      </form>
+      <p class="small-note">Gunakan tombol panah kiri/kanan untuk bergerak dan spasi untuk melompat.</p>
+    </section>
+
+    <section id="game-panel" class="game-panel hidden" aria-label="Permainan">
+      <div class="game-hud"><span id="player-label">Pemain</span><span id="level-label">DUNIA 1-1</span><span id="progress-label">Musuh 0/4</span></div>
+      <canvas id="game" width="800" height="420" aria-label="Area game platformer"></canvas>
+      <div class="controls-hint">← → Bergerak <span>•</span> SPASI Melompat <span>•</span> Dekati musuh untuk menjawab soal</div>
+      <div id="question-panel" class="question-panel hidden" role="dialog" aria-modal="true" aria-labelledby="question-title">
+        <div class="pixel-badge">TANTANGAN MATEMATIKA</div>
+        <h2 id="question-title">Jawab soal untuk melewati musuh!</h2>
+        <p id="question-text"></p>
+        <form id="answer-form">
+          <label for="answer-input">Jawabanmu</label>
+          <input id="answer-input" inputmode="numeric" autocomplete="off" required placeholder="Ketik jawaban">
+          <button class="button primary" type="submit">JAWAB</button>
+        </form>
+        <p id="answer-feedback" class="feedback" aria-live="polite"></p>
+      </div>
+    </section>
+
+    <section id="finish-panel" class="panel hidden">
+      <div class="pixel-badge">PETUALANGAN SELESAI</div>
+      <h2 id="finish-title">Hebat, petualang!</h2>
+      <p id="finish-message"></p>
+      <div class="result-grid">
+        <div><span>Skor</span><strong id="final-score">0</strong></div>
+        <div><span>Jawaban benar</span><strong id="final-correct">0</strong></div>
+        <div><span>Percobaan</span><strong id="final-attempts">0</strong></div>
+      </div>
+      <p id="save-status" class="feedback" aria-live="polite">Menyimpan hasil...</p>
+      <button id="play-again" class="button primary">MAIN LAGI</button>
+    </section>
+    <footer>Petualangan Matematika • Belajar sambil bermain</footer>
+  </main>
+  <script type="module" src="game.js"></script>
+</body>
+</html>
